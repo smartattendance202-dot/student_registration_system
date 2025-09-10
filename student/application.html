@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقديم طلب التسجيل - نظام تسجيل الطلاب</title>
+    
+    <!-- Bootstrap 5 RTL CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts - Arabic -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Noto Sans Arabic', sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+        
+        .card {
+            border: none;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            border-radius: 0.5rem;
+        }
+        
+        .card-header {
+            background-color: #fff;
+            border-bottom: 1px solid #dee2e6;
+            font-weight: 600;
+        }
+        
+        .btn {
+            border-radius: 0.375rem;
+            font-weight: 500;
+        }
+        
+        .form-control, .form-select {
+            border-radius: 0.375rem;
+        }
+        
+        .alert {
+            border-radius: 0.5rem;
+            border: none;
+        }
+        
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 2rem 0;
+            margin-top: auto;
+        }
+        
+        .main-content {
+            min-height: calc(100vh - 200px);
+        }
+        
+        .upload-card {
+            border: 2px dashed #dee2e6;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .upload-card:hover {
+            border-color: #0d6efd;
+            background-color: #f8f9ff;
+        }
+        
+        .upload-header {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+        }
+        
+        .upload-body {
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .upload-placeholder {
+            text-align: center;
+            padding: 1rem;
+            color: #6c757d;
+        }
+        
+        .upload-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="fas fa-graduation-cap me-2"></i>
+                نظام تسجيل الطلاب
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="status.html">
+                            <i class="fas fa-info-circle me-1"></i>حالة الطلب
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="application.html">
+                            <i class="fas fa-plus me-1"></i>تقديم طلب
+                        </a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../auth/login.html">
+                            <i class="fas fa-sign-in-alt me-1"></i>تسجيل الدخول
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../auth/register.html">
+                            <i class="fas fa-user-plus me-1"></i>إنشاء حساب
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content flex-grow-1">
+        <div class="container mt-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="mb-0">
+                                <i class="fas fa-file-alt me-2"></i>تقديم طلب التسجيل
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <strong>ملاحظة مهمة:</strong> يمكنك تقديم حتى 5 طلبات. تأكد من صحة جميع البيانات قبل الإرسال.
+                                <br>
+                                <strong>تنبيه:</strong> لا يمكن تعديل البيانات بعد التقديم، لذا تأكد من دقة المعلومات.
+                            </div>
+                            
+                            <form>
+                                <!-- البيانات الشخصية -->
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">البيانات الشخصية</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">الاسم الكامل</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">تاريخ الميلاد</label>
+                                                <input type="date" class="form-control">
+                                                <div class="form-text">أدخل تاريخ الميلاد بالتقويم الميلادي</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">الجنس</label>
+                                                <select class="form-select">
+                                                    <option value="">اختر الجنس</option>
+                                                    <option value="ذكر">ذكر</option>
+                                                    <option value="أنثى">أنثى</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">الجنسية</label>
+                                                <select class="form-select">
+                                                    <option value="">اختر الجنسية</option>
+                                                    <option value="يمني">يمني</option>
+                                                    <option value="أجنبي">أجنبي</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label class="form-label">مكان الميلاد</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- بيانات الاتصال -->
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">بيانات الاتصال</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">رقم الجوال</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">+967</span>
+                                                    <input type="text" class="form-control" placeholder="712345678">
+                                                </div>
+                                                <div class="form-text">أدخل رقم الجوال اليمني بدون رمز الدولة (يبدأ بـ 7، مثال: 712345678)</div>
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">البريد الإلكتروني</label>
+                                                <input type="email" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- البيانات الأكاديمية -->
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">البيانات الأكاديمية</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">اسم الفصل الدراسي</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">اسم المدرسة</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- الصور الشخصية المطلوبة -->
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">الصور الشخصية المطلوبة</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- تنبيه متطلبات الصور -->
+                                        <div class="alert alert-light border-start border-primary border-4 mb-4">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-camera text-primary fa-2x me-3"></i>
+                                                <div>
+                                                    <h6 class="mb-1 text-primary">متطلبات الصور الشخصية</h6>
+                                                    <small class="text-muted">
+                                                        • 5 صور شخصية واضحة • تنسيقات مدعومة: JPG, PNG, WebP • حد أقصى: 15MB لكل صورة • جودة عالية مفضلة
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- شبكة الصور المحسنة -->
+                                        <div class="row g-3">
+                                            <div class="col-lg-4 col-md-6">
+                                                <div class="upload-card h-100">
+                                                    <div class="upload-header">
+                                                        <i class="fas fa-user-circle text-primary me-2"></i>
+                                                        <span class="fw-medium">الصورة الأولى</span>
+                                                        <span class="badge bg-danger ms-auto">مطلوبة</span>
+                                                    </div>
+                                                    <div class="upload-body">
+                                                        <input type="file" class="form-control upload-input" accept="image/*">
+                                                        <div class="upload-placeholder">
+                                                            <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
+                                                            <p class="text-muted mb-0">اضغط لاختيار الصورة</p>
+                                                            <small class="text-muted">أو اسحب الملف هنا</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-lg-4 col-md-6">
+                                                <div class="upload-card h-100">
+                                                    <div class="upload-header">
+                                                        <i class="fas fa-user-tie text-primary me-2"></i>
+                                                        <span class="fw-medium">الصورة الثانية</span>
+                                                        <span class="badge bg-danger ms-auto">مطلوبة</span>
+                                                    </div>
+                                                    <div class="upload-body">
+                                                        <input type="file" class="form-control upload-input" accept="image/*">
+                                                        <div class="upload-placeholder">
+                                                            <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
+                                                            <p class="text-muted mb-0">اضغط لاختيار الصورة</p>
+                                                            <small class="text-muted">أو اسحب الملف هنا</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-lg-4 col-md-6">
+                                                <div class="upload-card h-100">
+                                                    <div class="upload-header">
+                                                        <i class="fas fa-user-graduate text-primary me-2"></i>
+                                                        <span class="fw-medium">الصورة الثالثة</span>
+                                                        <span class="badge bg-danger ms-auto">مطلوبة</span>
+                                                    </div>
+                                                    <div class="upload-body">
+                                                        <input type="file" class="form-control upload-input" accept="image/*">
+                                                        <div class="upload-placeholder">
+                                                            <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
+                                                            <p class="text-muted mb-0">اضغط لاختيار الصورة</p>
+                                                            <small class="text-muted">أو اسحب الملف هنا</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-lg-4 col-md-6">
+                                                <div class="upload-card h-100">
+                                                    <div class="upload-header">
+                                                        <i class="fas fa-user-check text-primary me-2"></i>
+                                                        <span class="fw-medium">الصورة الرابعة</span>
+                                                        <span class="badge bg-danger ms-auto">مطلوبة</span>
+                                                    </div>
+                                                    <div class="upload-body">
+                                                        <input type="file" class="form-control upload-input" accept="image/*">
+                                                        <div class="upload-placeholder">
+                                                            <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
+                                                            <p class="text-muted mb-0">اضغط لاختيار الصورة</p>
+                                                            <small class="text-muted">أو اسحب الملف هنا</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-lg-4 col-md-6">
+                                                <div class="upload-card h-100">
+                                                    <div class="upload-header">
+                                                        <i class="fas fa-user-plus text-primary me-2"></i>
+                                                        <span class="fw-medium">الصورة الخامسة</span>
+                                                        <span class="badge bg-danger ms-auto">مطلوبة</span>
+                                                    </div>
+                                                    <div class="upload-body">
+                                                        <input type="file" class="form-control upload-input" accept="image/*">
+                                                        <div class="upload-placeholder">
+                                                            <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
+                                                            <p class="text-muted mb-0">اضغط لاختيار الصورة</p>
+                                                            <small class="text-muted">أو اسحب الملف هنا</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- بيانات ولي الأمر -->
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">بيانات ولي الأمر</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">اسم ولي الأمر</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">رقم جوال ولي الأمر</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">+967</span>
+                                                    <input type="text" class="form-control" placeholder="712345678">
+                                                </div>
+                                                <div class="form-text">أدخل رقم الجوال اليمني بدون رمز الدولة (يبدأ بـ 7، مثال: 712345678)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- الإقرار -->
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">الإقرار والموافقة</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-check mb-3">
+                                            <input type="checkbox" class="form-check-input" id="privacy_agreement">
+                                            <label class="form-check-label" for="privacy_agreement">أوافق على سياسة الخصوصية وشروط الاستخدام</label>
+                                        </div>
+                                        
+                                        <div class="alert alert-warning">
+                                            <i class="fas fa-exclamation-triangle me-2"></i>
+                                            بتقديم هذا الطلب، أقر بأن جميع المعلومات المقدمة صحيحة ودقيقة، وأتحمل المسؤولية الكاملة عن أي معلومات خاطئة.
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- أزرار الإرسال -->
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a href="status.html" class="btn btn-outline-secondary me-md-2">
+                                        <i class="fas fa-arrow-right me-2"></i>إلغاء
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">تقديم الطلب</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>نظام تسجيل الطلاب</h5>
+                    <p class="mb-0">نظام متكامل لإدارة طلبات تسجيل الطلاب</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <p class="mb-0">&copy; 2025 جميع الحقوق محفوظة</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
