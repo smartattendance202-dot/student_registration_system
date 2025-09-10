@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <!-- Hero Section -->
+        <div class="card mb-4">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-graduation-cap text-primary mb-3" style="font-size: 4rem;"></i>
+                <h1 class="card-title mb-3">مرحباً بك في نظام تسجيل الطلاب</h1>
+                <p class="card-text lead mb-4">
+                    نظام متكامل لإدارة طلبات تسجيل الطلاب مع إمكانية المراجعة والموافقة من قبل المشرفين
+                </p>
+                
+                {% if not current_user.is_authenticated %}
+                    <div class="d-grid gap-2 d-md-block">
+                        <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg me-2">
+                            <i class="fas fa-user-plus me-2"></i>إنشاء حساب جديد
+                        </a>
+                        <a href="{{ url_for('auth.login') }}" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-sign-in-alt me-2"></i>تسجيل الدخول
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-file-alt text-primary mb-3" style="font-size: 2.5rem;"></i>
+                        <h5 class="card-title">تقديم الطلبات</h5>
+                        <p class="card-text">
+                            قدم طلب التسجيل بسهولة مع رفع الوثائق المطلوبة
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-clock text-warning mb-3" style="font-size: 2.5rem;"></i>
+                        <h5 class="card-title">متابعة الحالة</h5>
+                        <p class="card-text">
+                            تابع حالة طلبك في الوقت الفعلي
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-shield-alt text-success mb-3" style="font-size: 2.5rem;"></i>
+                        <h5 class="card-title">أمان عالي</h5>
+                        <p class="card-text">
+                            حماية متقدمة لبياناتك الشخصية والوثائق
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions Section -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>كيفية استخدام النظام
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-primary">للطلاب الجدد:</h6>
+                        <ol class="list-group list-group-numbered list-group-flush">
+                            <li class="list-group-item border-0 px-0">إنشاء حساب جديد</li>
+                            <li class="list-group-item border-0 px-0">تسجيل الدخول</li>
+                            <li class="list-group-item border-0 px-0">تعبئة نموذج التسجيل</li>
+                            <li class="list-group-item border-0 px-0">رفع الوثائق المطلوبة</li>
+                            <li class="list-group-item border-0 px-0">انتظار المراجعة (72 ساعة)</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h6 class="text-success">الوثائق المطلوبة:</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item border-0 px-0">
+                                <i class="fas fa-file-pdf text-danger me-2"></i>
+                                شهادة الثانوية أو كشف الدرجات (PDF/صورة)
+                            </li>
+                            <li class="list-group-item border-0 px-0">
+                                <i class="fas fa-image text-info me-2"></i>
+                                صورة شخصية (300×300 بكسل على الأقل)
+                            </li>
+                        </ul>
+                        
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            <strong>ملاحظة:</strong> صلاحية الطلب 72 ساعة من تاريخ التقديم
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">
+                    <i class="fas fa-cogs me-2"></i>حالة نظام التحقق من الصور
+                </h4>
+            </div>
+            <div class="card-body">
+                
+                <!-- حالة النظام العامة -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card border-{% if status.service_available %}success{% else %}danger{% endif %}">
+                            <div class="card-body text-center">
+                                <i class="fas fa-{% if status.service_available %}check-circle{% else %}times-circle{% endif %} fa-3x text-{% if status.service_available %}success{% else %}danger{% endif %} mb-3"></i>
+                                <h5>حالة الخدمة</h5>
+                                <p class="mb-0">
+                                    {% if status.service_available %}
+                                        <span class="badge bg-success">متاحة</span>
+                                    {% else %}
+                                        <span class="badge bg-danger">غير متاحة</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card border-{% if status.face_recognition_available %}success{% else %}warning{% endif %}">
+                            <div class="card-body text-center">
+                                <i class="fas fa-{% if status.face_recognition_available %}user-check{% else %}user-times{% endif %} fa-3x text-{% if status.face_recognition_available %}success{% else %}warning{% endif %} mb-3"></i>
+                                <h5>التعرف على الوجوه</h5>
+                                <p class="mb-0">
+                                    {% if status.face_recognition_available %}
+                                        <span class="badge bg-success">متاح</span>
+                                    {% else %}
+                                        <span class="badge bg-warning">غير متاح</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تفاصيل النظام -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="mb-0">تفاصيل النظام المستخدم</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <strong>نوع النظام:</strong>
+                            </div>
+                            <div class="col-md-8">
+                                <span class="badge bg-{% if status.face_recognition_available %}primary{% else %}secondary{% endif %}">
+                                    {{ status.validation_method }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الميزات المتاحة -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="mb-0">الميزات المتاحة</h6>
+                    </div>
+                    <div class="card-body">
+                        {% if status.face_recognition_available %}
+                        <div class="alert alert-success">
+                            <h6><i class="fas fa-check-circle me-2"></i>النظام المتقدم (التعرف على الوجوه)</h6>
+                            <ul class="mb-0">
+                                <li>✅ اكتشاف الوجوه في الصور</li>
+                                <li>✅ رفض الصور التي لا تحتوي على أشخاص (سيارات، مناظر طبيعية)</li>
+                                <li>✅ منع رفع نفس الصورة مرتين</li>
+                                <li>✅ فحص جودة الصورة (السطوع، التباين)</li>
+                                <li>✅ فحص أبعاد ونسبة الصورة</li>
+                                <li>✅ مقارنة دقيقة للوجوه</li>
+                            </ul>
+                        </div>
+                        {% elif status.service_available %}
+                        <div class="alert alert-warning">
+                            <h6><i class="fas fa-exclamation-triangle me-2"></i>النظام الأساسي (فحص الجودة والتكرار)</h6>
+                            <ul class="mb-0">
+                                <li>✅ فحص جودة الصورة (السطوع، التباين)</li>
+                                <li>✅ فحص أبعاد ونسبة الصورة</li>
+                                <li>✅ منع رفع نفس الصورة مرتين (hash)</li>
+                                <li>⚠️ لا يمكن اكتشاف الوجوه</li>
+                                <li>⚠️ لا يمكن رفض صور السيارات أو المناظر</li>
+                            </ul>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-danger">
+                            <h6><i class="fas fa-times-circle me-2"></i>النظام معطل</h6>
+                            <p class="mb-0">لا توجد أي ميزات تحقق متاحة. سيتم قبول جميع الصور.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- إرشادات التحسين -->
+                {% if not status.face_recognition_available %}
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="mb-0">تحسين النظام</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info">
+                            <h6><i class="fas fa-lightbulb me-2"></i>لتفعيل النظام المتقدم:</h6>
+                            <ol>
+                                <li>قم بتثبيت المكتبات المطلوبة:
+                                    <pre class="mt-2 mb-2"><code>pip install face-recognition opencv-python numpy</code></pre>
+                                </li>
+                                <li>أو استخدم السكريبت المرفق:
+                                    <pre class="mt-2 mb-2"><code>python install_face_recognition.py</code></pre>
+                                </li>
+                                <li>أعد تشغيل الخادم</li>
+                            </ol>
+                            <p class="mb-0"><strong>ملاحظة:</strong> قد تحتاج لتثبيت Visual Studio Build Tools على Windows.</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,140 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4 class="mb-0">
+                    <i class="fas fa-user-plus me-2"></i>إنشاء حساب جديد
+                </h4>
+            </div>
+            <div class="card-body">
+                <!-- عرض رسالة الرقم المستخدم -->
+                {% if show_login_link and existing_phone %}
+                    <div class="alert alert-warning">
+                        <h6><i class="fas fa-info-circle me-2"></i>الرقم مسجل مسبقاً</h6>
+                        <p class="mb-2">يوجد حساب مسجل بالرقم <strong>{{ existing_phone }}</strong></p>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                            <a href="{{ url_for('auth.login', phone=existing_phone) }}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-sign-in-alt me-1"></i>تسجيل الدخول بهذا الرقم
+                            </a>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="clearPhone()">
+                                <i class="fas fa-edit me-1"></i>استخدام رقم آخر
+                            </button>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- عرض جميع أخطاء النموذج -->
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <h6><i class="fas fa-exclamation-triangle me-2"></i>يرجى تصحيح الأخطاء التالية:</h6>
+                        <ul class="mb-0">
+                            {% for field, errors in form.errors.items() %}
+                                {% for error in errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+
+                    
+                    <div class="mb-3">
+                        {{ form.phone.label(class="form-label") }}
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-phone me-1"></i>+967</span>
+                            {{ form.phone(class="form-control" + (" is-invalid" if form.phone.errors else ""), placeholder="777679136") }}
+                        </div>
+                        {% if form.phone.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.phone.errors %}
+                                    {{ error }}
+                                    {% if 'يوجد حساب مسجل بهذا الرقم' in error %}
+                                        <br><a href="{{ url_for('auth.login', phone=form.phone.data) }}" class="text-primary">
+                                            <i class="fas fa-sign-in-alt me-1"></i>انتقل لتسجيل الدخول بهذا الرقم
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">أدخل رقم الجوال اليمني مع أو بدون رمز الدولة (مثال: 777679136 أو +967777679136)</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.password.label(class="form-label") }}
+                        {{ form.password(class="form-control" + (" is-invalid" if form.password.errors else "")) }}
+                        {% if form.password.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.password.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">8 أحرف على الأقل</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.password2.label(class="form-label") }}
+                        {{ form.password2(class="form-control" + (" is-invalid" if form.password2.errors else "")) }}
+                        {% if form.password2.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.password2.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-grid">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <p class="mb-0">
+                    لديك حساب بالفعل؟ 
+                    <a href="{{ url_for('auth.login') }}" class="text-decoration-none">
+                        تسجيل الدخول
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// تحسين تجربة المستخدم
+document.addEventListener('DOMContentLoaded', function() {
+    const phoneInput = document.getElementById('phone');
+    
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function() {
+            // إزالة الأحرف غير المسموحة
+            this.value = this.value.replace(/[^\d+\s-]/g, '');
+        });
+    }
+});
+
+// مسح رقم الهاتف
+function clearPhone() {
+    const phoneInput = document.getElementById('phone');
+    if (phoneInput) {
+        phoneInput.value = '';
+        phoneInput.focus();
+    }
+    // إخفاء رسالة التحذير
+    const alertDiv = document.querySelector('.alert-warning');
+    if (alertDiv) {
+        alertDiv.style.display = 'none';
+    }
+}
+</script>
+{% endblock %}
